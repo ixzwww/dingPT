@@ -1,0 +1,203 @@
+<template>
+  <div id="factory">
+    <table class="table">
+      <tr>
+        <th>身份证图片</th>
+        <th>姓名</th>
+        <th>账号/手机号</th>
+        <th>身份证</th>
+        <th colspan="5">密码</th>
+        <th>审核人员</th>
+        <th>操作</th>
+      </tr>
+      <template v-for="worker in filterworkers">
+        <tr>
+          <td rowspan="2"><img
+              v-bind:src="worker.user_id_card_photo"
+              alt=""
+            ></td>
+          <td rowspan="2">{{worker.user_name}}</td>
+          <td rowspan="2">{{worker.user_phone}}</td>
+          <td rowspan="2">{{worker.user_id_card_num}}</td>
+          <td>登录</td>
+          <td>店长</td>
+          <td>财务</td>
+          <td>库存</td>
+          <td>经理</td>
+          <td rowspan="2">{{worker.auditor_name}}</td>
+          <td rowspan="2">
+            <span
+              class="edit"
+              @click="edit(worker)"
+            >修改</span>
+            <span
+              class="edit"
+              @click="showData(worker.user_id)"
+            >数据</span>
+          </td>
+        </tr>
+        <tr>
+          <td>{{worker.user_login_pw}}</td>
+          <td>{{worker.user_master_pw}}</td>
+          <td>{{worker.user_finance_pw}}</td>
+          <td>{{worker.user_saving_pw}}</td>
+          <td>{{worker.user_manager_pw}}</td>
+        </tr>
+      </template>
+    </table>
+    <edit
+      class="edit-wrapper"
+      ref='edit'
+    ></edit>
+    <div
+      class="add"
+      @click="add"
+    >
+      <span class="addBtn">+</span>
+      <span>添加用户</span>
+    </div>
+    <add class="edit-wrapper"></add>
+
+  </div>
+</template>
+
+<script>
+import Edit from "./Edit";
+import Add from "./Add";
+
+export default {
+  name: "factory",
+  components: {
+    edit: Edit,
+    add: Add
+  },
+  data() {
+    return {
+      workerList: [],
+      searchTxt: ""
+      // editData:{},
+    };
+  },
+  beforeRouteEnter: (to, from, next) => {
+    if (
+      window.sessionStorage.getItem("isLogin") &&
+      window.sessionStorage.getItem("isAdmin")
+    ) {
+      next();
+    } else {
+      alert("你需要登陆");
+      next("/");
+    }
+  },
+  created() {
+    let token = this.$store.getters.token;
+    let data = {
+      token: token
+    };
+    this.$axios
+      .post("Admin/get_worker_list", JSON.stringify(data))
+      .then(res => {
+
+        this.workerList = JSON.parse(res.data);
+      });
+  },
+  methods: {
+    edit(worker) {
+      var editPage = document.getElementById("edit");
+      editPage.style.display = "block";
+      this.$refs.edit.getEditData(worker);
+    },
+    add() {
+      var addPage = document.getElementById("add");
+      addPage.style.display = "block";
+    },
+    showData(worker_id) {
+      this.$store.commit("setWorker_id", worker_id);
+      this.$router.push({
+        name: "singleFactoryLink",
+        params: {
+          worker_id: worker_id
+        }
+      });
+    }
+  },
+  computed: {
+    filterworkers: function() {
+      return this.workerList.filter(worker => {
+        return (
+          worker.user_name.match(this.$store.getters.searchTxt) ||
+          worker.user_phone.match(this.$store.getters.searchTxt)
+        );
+      });
+    }
+  }
+};
+</script>
+
+<style scoped>
+#factory {
+  width: 1200px;
+  margin: 0 auto;
+}
+.table {
+  width: 1200px;
+  margin: 0 auto;
+  border-left: 1px solid #00aa99;
+  border-top: 1px solid #00aa99;
+  border-collapse: collapse;
+}
+.table td,
+th {
+  height: 30px;
+  border-bottom: 1px solid #00aa99;
+  border-right: 1px solid #00aa99;
+  text-align: center;
+  font-size: 17px;
+}
+.table img {
+  width: 172px;
+  height: 108px;
+  margin-top: 3px;
+}
+
+.edit-wrapper {
+  border: #000 1px solid;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  width: 450px;
+  position: absolute;
+  left: 50%;
+  margin-left: -225px;
+  top: 50%;
+  height: 680px;
+  margin-top: -325px;
+  background-color: #fff;
+}
+.edit {
+  color: #00cc99;
+  text-decoration: underline;
+}
+.edit:hover {
+  cursor: pointer;
+}
+#edit,
+#add {
+  display: none;
+}
+
+.add {
+  width: 150px;
+  margin: 10px auto;
+  border: #00cc99 2px solid;
+  border-radius: 4px;
+  color: #00cc99;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+.add:hover {
+  cursor: pointer;
+}
+.addBtn {
+  font-weight: bold;
+}
+</style>
