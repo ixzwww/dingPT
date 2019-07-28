@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  inject: ["reload"], //项目刷新不白屏
+  inject: ["reload","mask"], //项目刷新不白屏
   name: "add",
 
   data() {
@@ -165,6 +165,7 @@ export default {
             addPage.style.display = "none";
             alert("添加成功");
             this.reload(); //项目刷新不白屏
+            this.mask();
           } else if (res.data.msg == "params error") {
             alert("添加值为空或非法");
           } else if (res.data.msg == "photo err") {
@@ -186,6 +187,8 @@ export default {
       };
     },
     close() {
+      this.mask();
+
       this.addData = {};
       document.getElementById("add-file").value = null;
       this.src = "";

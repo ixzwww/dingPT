@@ -66,6 +66,7 @@ import Edit from "./Edit";
 import Add from "./Add";
 
 export default {
+  inject: ["mask"], 
   name: "factory",
   components: {
     edit: Edit,
@@ -103,11 +104,13 @@ export default {
   },
   methods: {
     edit(worker) {
+      this.mask();
       var editPage = document.getElementById("edit");
       editPage.style.display = "block";
       this.$refs.edit.getEditData(worker);
     },
     add() {
+      this.mask();
       var addPage = document.getElementById("add");
       addPage.style.display = "block";
     },
@@ -164,13 +167,14 @@ th {
   border: #000 1px solid;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   width: 450px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   margin-left: -225px;
   top: 50%;
-  height: 680px;
-  margin-top: -325px;
+  height: 500px;
+  margin-top: -250px;
   background-color: #fff;
+  overflow-y:scroll;
 }
 .edit {
   color: #00cc99;

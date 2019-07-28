@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  inject: ["reload"], //项目刷新不白屏
+  inject: ["reload","mask"], //项目刷新不白屏
   name: "edit",
 
   data() {
@@ -126,6 +126,8 @@ export default {
               editPage.style.display = "none";
               alert("修改成功");
               this.reload(); //项目刷新不白屏
+              this.mask();
+
             } else if (res.data.errorCode == 10000) {
               alert("修改值非法");
             } else {
@@ -154,6 +156,8 @@ export default {
       };
     },
     close() {
+      this.mask();
+
       var editPage = document.getElementById("edit");
       editPage.style.display = "none";
     }

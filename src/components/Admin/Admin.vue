@@ -36,6 +36,7 @@ import Add from './Add'
 
 
 export default {
+  inject: ["mask"], //项目刷新不白屏
   name: 'admin',
   components:{
     edit : Edit,
@@ -70,15 +71,18 @@ export default {
   },
   methods:{
     edit(manager){
+      this.mask();
+
       var editPage = document.getElementById('edit');
       editPage.style.display = 'block';
       this.$refs.edit.getEditData(manager);
 
     },
     add(){
-    var addPage = document.getElementById('add');
-      addPage.style.display = 'block';
-    }
+      this.mask();
+      var addPage = document.getElementById('add');
+        addPage.style.display = 'block';
+      }
   },
   computed:{
     filterManagers:function(){
@@ -93,7 +97,7 @@ export default {
 <style scoped>
 #admin{
   width:1200px;
-    margin: 0 auto;
+  margin: 0 auto;
 }
   .table{
     width:1200px;
@@ -120,7 +124,7 @@ export default {
     border: #000 1px solid;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     width: 450px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     margin-left: -225px;
     top: 50%;
