@@ -18,7 +18,7 @@ Vue.use(VueRouter)
 Vue.prototype.$axios = axios;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.baseURL = 'http://www.314web.cn/pei/public/index.php/api/'
+axios.defaults.baseURL = 'http://m.dingpeitong.cn/pei/public/index.php/api/'
 //token刷新axios劫持
 axios.interceptors.response.use(
   response => {
