@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import {getDate,getSeconds} from '@/common.js'
+
 export default {
   name: "Order",
   components: {},
@@ -42,26 +44,7 @@ export default {
       worker_id: this.$store.getters.worker_id
     };
     this.trade_id = this.$route.params.trade_id;
-    function getSeconds(date) {
-      if (date != 0) {
-        var t = new Date(date * 1000);
-        return (
-          t.getFullYear() +
-          "/" +
-          (t.getMonth() + 1) +
-          "/" +
-          t.getDate() +
-          " " +
-          t.getHours() +
-          ":" +
-          t.getMinutes() +
-          ":" +
-          t.getSeconds()
-        );
-      } else {
-        return "暂无";
-      }
-    }
+
     this.$axios.post("Pcinfo/get_sell", JSON.stringify(data)).then(res => {
       this.orders = res.data.good_data.data;
       this.orders.forEach(element => {

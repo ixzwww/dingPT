@@ -38,6 +38,11 @@
           <label>经理密码：</label>
           <input type="text" placeholder="英文或数字，3~8位" v-model="editData.user_manager_pw">
         </div>
+        <div class="form-group">
+          <label>到期时间：</label>
+          <input type="text" v-model="editData.expire_time" v-if="!isEdit" @click="isEdit = true">
+          <input type="date" v-model="editData.expire_time" v-else>
+        </div>
         <div class="form-img">
           <label for="file">更改图片</label>
 
@@ -57,6 +62,9 @@
 </template>
 
 <script>
+
+import {getDate,getSeconds} from '@/common.js'
+
 export default {
   inject: ["reload","mask"], //项目刷新不白屏
   name: "edit",
@@ -64,7 +72,8 @@ export default {
   data() {
     return {
       src: "",
-      editData: {}
+      editData: {},
+      isEdit:false
     };
   },
   methods: {
@@ -80,6 +89,7 @@ export default {
       let user_saving_pw = this.editData.user_login_pw;
       let user_manager_pw = this.editData.user_manager_pw;
       let user_id = this.editData.user_id;
+      let expire_time = new Date(this.editData.expire_time).getTime()/1000;
       let params = new FormData(); //创建一个form对象
       if (image) {
         if (image.type.indexOf("image/") == -1) {
@@ -142,7 +152,12 @@ export default {
         !!!user_nameRex.test(user_name)
       ) {
         alert("姓名只能输入中文和英文");
-      } else {
+      } else if (
+        !!!expire_time ||
+        expire_time === ""
+      ) {
+        alert("请输入正确的日期");
+      }else {
         params.append("token", token); //append 向form表单添加数据
         params.append("user_name", user_name); //append 向form表单添加数据
         params.append("user_phone", user_phone); //append 向form表单添加数据
@@ -153,6 +168,7 @@ export default {
         params.append("user_saving_pw", user_saving_pw); //append 向form表单添加数据
         params.append("user_manager_pw", user_manager_pw); //append 向form表单添加数据
         params.append("user_id", user_id);
+        params.append("expire_time", expire_time); //append 向form表单添加数据
         let config = {
           headers: { "Content-Type": "multipart/form-data" }
         };
@@ -185,6 +201,7 @@ export default {
       }
     },
     getEditData(worker) {
+      this.isEdit = false
       this.editData.user_id = worker.user_id;
       this.editData.user_name = worker.user_name;
       this.editData.user_phone = worker.user_phone;
@@ -195,6 +212,8 @@ export default {
       this.editData.user_saving_pw = worker.user_saving_pw;
       this.editData.user_manager_pw = worker.user_manager_pw;
       this.src = worker.user_id_card_photo;
+      this.editData.expire_time = worker.expire_time
+
     },
     getFile(e) {
       let _this = this;
@@ -207,6 +226,7 @@ export default {
       };
     },
     close() {
+      this.isEdit = false      
       this.mask();
       var editPage = document.getElementById("edit");
       editPage.style.display = "none";

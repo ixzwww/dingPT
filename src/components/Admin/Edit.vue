@@ -41,6 +41,8 @@
 </template>
 
 <script>
+
+
 export default {
   inject: ["reload","mask"], //项目刷新不白屏
   name: "edit",

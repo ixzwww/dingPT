@@ -8,10 +8,11 @@
         <th>身份证</th>
         <th colspan="5">密码</th>
         <th>审核时间</th>
+        <th>到期时间</th>
         <th>操作</th>
       </tr>
-      <template v-for="worker in filterworkers">
-        <tr>
+      <template v-for="worker in filterworkers" >
+        <tr >
           <td rowspan="2"><img
               v-bind:src="worker.user_id_card_photo"
               alt=""
@@ -24,7 +25,8 @@
           <td>财务</td>
           <td>库存</td>
           <td>经理</td>
-          <td rowspan="2">{{worker.auditor_time}}</td>
+          <td rowspan="2">{{worker.auditor_name}}</td>
+          <td rowspan="2">{{worker.expire_time}}</td>
           <td rowspan="2">
             <span
               class="edit"
@@ -33,7 +35,7 @@
  
           </td>
         </tr>
-        <tr>
+        <tr >
           <td>{{worker.user_login_pw}}</td>
           <td>{{worker.user_master_pw}}</td>
           <td>{{worker.user_finance_pw}}</td>
@@ -62,6 +64,7 @@
 <script>
 import Edit from "./Edit";
 import Add from "./Add";
+import {getDate,getSeconds} from '@/common.js'
 
 export default {
   inject: ["mask"], 
@@ -89,14 +92,6 @@ export default {
     }
   },
   created() {
-    function getDate(date) {
-      if (date != 0) {
-        var t = new Date(date* 1000);
-        return t.getFullYear() + "/" + (t.getMonth() + 1) + "/" + t.getDate();
-      } else {
-        return "暂无";
-      }
-    }
     let token = this.$store.getters.token;
     let data = {
       token: token
@@ -107,7 +102,7 @@ export default {
 
         this.workerList = JSON.parse(res.data);
         this.workerList.forEach(element => {
-          element.auditor_time = getDate(element.auditor_time)
+          element.expire_time = getDate(element.expire_time)
         });
       });
   },
@@ -172,7 +167,7 @@ th {
   left: 50%;
   margin-left: -225px;
   top: 50%;
-  height: 500px;
+  height: 80%;
   margin-top: -250px;
   background-color: #fff;
   overflow-y:scroll;

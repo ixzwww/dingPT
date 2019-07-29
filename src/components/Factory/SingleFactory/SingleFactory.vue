@@ -51,6 +51,8 @@
 
 <script>
 import Navigator from "./Navigator";
+import {getDate,getSeconds} from '@/common.js'
+
 export default {
   inject: ["reload"],
   name: "SingleFactory",
@@ -70,34 +72,6 @@ export default {
       token: this.$store.getters.token,
       worker_id: this.worker_id
     };
-    function getDate(date) {
-      if (date != 0) {
-        var t = new Date(date* 1000);
-        return t.getFullYear() + "/" + (t.getMonth() + 1) + "/" + t.getDate();
-      } else {
-        return "暂无";
-      }
-    }
-    function getSeconds(date) {
-      if (date != 0) {
-        var t = new Date(date * 1000);
-        return (
-          t.getFullYear() +
-          "/" +
-          (t.getMonth() + 1) +
-          "/" +
-          t.getDate() +
-          " " +
-          t.getHours() +
-          ":" +
-          t.getMinutes() +
-          ":" +
-          t.getSeconds()
-        );
-      } else {
-        return "暂无";
-      }
-    }
     function getActivity(date) {
       // if (date >= 3600000) {
       //   return (date / (1000 * 60 * 60)).toFixed(2) + "h";

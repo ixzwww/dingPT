@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import {getDate,getSeconds} from '@/common.js'
+
 export default {
   name: "OrderForm",
   components: {},
@@ -65,26 +67,7 @@ export default {
         trade_id: trade_id,
         token: this.$store.getters.token
       };
-    function getSeconds(date) {
-      if (date != 0) {
-        var t = new Date(date * 1000);
-        return (
-          t.getFullYear() +
-          "/" +
-          (t.getMonth() + 1) +
-          "/" +
-          t.getDate() +
-          " " +
-          t.getHours() +
-          ":" +
-          t.getMinutes() +
-          ":" +
-          t.getSeconds()
-        );
-      } else {
-        return "暂无";
-      }
-    }
+
       this.$axios
         .post("Pcinfo/get_detail_sell", JSON.stringify(data))
         .then(res => {

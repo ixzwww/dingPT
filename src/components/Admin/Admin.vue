@@ -10,7 +10,7 @@
         <th>审核人数</th>
         <th>操作</th>
       </tr>
-      <tr v-for="manager in filterManagers">
+      <tr v-for="manager in filterManagers" >
         <td><img v-bind:src="manager.user_id_card_photo" alt=""></td>
         <td>{{manager.user_name}}</td>
         <td>{{manager.user_phone}}</td>
@@ -36,7 +36,7 @@ import Add from './Add'
 
 
 export default {
-  inject: ["mask"], //项目刷新不白屏
+  inject: ["mask"], 
   name: 'admin',
   components:{
     edit : Edit,

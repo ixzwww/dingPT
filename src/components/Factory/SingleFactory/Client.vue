@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import {getDate,getSeconds} from '@/common.js'
 export default {
   name: "Client",
   data() {
@@ -43,34 +44,7 @@ export default {
       token: this.$store.getters.token,
       worker_id: this.$store.getters.worker_id
     };
-    function getDate(date) {
-      if (date != 0) {
-        var t = new Date(date* 1000);
-        return t.getFullYear() + "/" + (t.getMonth() + 1) + "/" + t.getDate();
-      } else {
-        return "暂无";
-      }
-    }
-    function getSeconds(date) {
-      if (date != 0) {
-        var t = new Date(date * 1000);
-        return (
-          t.getFullYear() +
-          "/" +
-          (t.getMonth() + 1) +
-          "/" +
-          t.getDate() +
-          " " +
-          t.getHours() +
-          ":" +
-          t.getMinutes() +
-          ":" +
-          t.getSeconds()
-        );
-      } else {
-        return "暂无";
-      }
-    }
+
     this.$axios
       .post("Pcinfo/get_client_info", JSON.stringify(data))
       .then(res => {

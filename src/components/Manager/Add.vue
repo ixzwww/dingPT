@@ -73,6 +73,10 @@
             v-model="addData.user_manager_pw"
           >
         </div>
+        <div class="form-group">
+          <label>到期时间：</label>
+          <input type="date" v-model="addData.expire_time">
+        </div>
         <div class="form-img">
           <label for="add-file">上传图片</label>
 
@@ -104,6 +108,8 @@
 </template>
 
 <script>
+
+
 export default {
   inject: ["reload","mask"], //项目刷新不白屏
   name: "add",
@@ -126,6 +132,7 @@ export default {
       let user_finance_pw = this.addData.user_finance_pw;
       let user_saving_pw = this.addData.user_saving_pw;
       let user_manager_pw = this.addData.user_manager_pw;
+       let expire_time = new Date(this.addData.expire_time).getTime()/1000;
       let params = new FormData(); //创建一个form对象
       if (image) {
         if (image.type.indexOf("image/") == -1) {
@@ -189,6 +196,11 @@ export default {
         !!!user_nameRex.test(user_name)
       ) {
         alert("姓名只能输入中文和英文");
+      } else if (
+        !!!expire_time ||
+        expire_time === ""
+      ) {
+        alert("请输入正确的日期");
       } else if(!image){
         alert("请上传图片")
       }else {
@@ -202,6 +214,7 @@ export default {
       params.append("user_finance_pw", user_finance_pw); //append 向form表单添加数据
       params.append("user_saving_pw", user_saving_pw); //append 向form表单添加数据
       params.append("user_manager_pw", user_manager_pw); //append 向form表单添加数据
+      params.append("expire_time", expire_time); //append 向form表单添加数据
       let config = {
         headers: { "Content-Type": "multipart/form-data" }
       };

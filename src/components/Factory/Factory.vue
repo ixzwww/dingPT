@@ -8,9 +8,10 @@
         <th>身份证</th>
         <th colspan="5">密码</th>
         <th>审核人员</th>
+        <th>到期时间</th>
         <th>操作</th>
       </tr>
-      <template v-for="worker in filterworkers">
+      <template v-for="worker in filterworkers" >
         <tr>
           <td rowspan="2"><img
               v-bind:src="worker.user_id_card_photo"
@@ -25,6 +26,7 @@
           <td>库存</td>
           <td>经理</td>
           <td rowspan="2">{{worker.auditor_name}}</td>
+          <td rowspan="2">{{worker.expire_time}}</td>
           <td rowspan="2">
             <span
               class="edit"
@@ -36,7 +38,7 @@
             >数据</span>
           </td>
         </tr>
-        <tr>
+        <tr >
           <td>{{worker.user_login_pw}}</td>
           <td>{{worker.user_master_pw}}</td>
           <td>{{worker.user_finance_pw}}</td>
@@ -64,6 +66,7 @@
 <script>
 import Edit from "./Edit";
 import Add from "./Add";
+import {getDate,getSeconds} from '@/common.js'
 
 export default {
   inject: ["mask"], 
@@ -100,6 +103,12 @@ export default {
       .then(res => {
 
         this.workerList = JSON.parse(res.data);
+        this.workerList.forEach(ele=>{
+          console.log(ele.expire_time)
+
+          ele.expire_time = getDate(ele.expire_time)
+          console.log(ele.expire_time)
+        })
       });
   },
   methods: {
@@ -171,7 +180,7 @@ th {
   left: 50%;
   margin-left: -225px;
   top: 50%;
-  height: 500px;
+  height: 80%;
   margin-top: -250px;
   background-color: #fff;
   overflow-y:scroll;

@@ -41,6 +41,7 @@
 </template>
 
 <script>
+
 export default {
   inject: ["reload","mask"], //项目刷新不白屏
   name: "add",
@@ -48,7 +49,8 @@ export default {
   data() {
     return {
       src: "",
-      addData: {}
+      addData: {},
+      
     };
   },
   methods: {
@@ -138,6 +140,7 @@ export default {
         _this.src = this.result;
       };
     },
+
     close() {
       this.mask();
 

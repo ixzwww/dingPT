@@ -38,8 +38,13 @@
           <label>经理密码：</label>
           <input type="text" placeholder="英文或数字，3~8位" v-model="addData.user_manager_pw">
         </div>
+        <div class="form-group">
+          <label>到期时间：</label>
+          <input type="date" v-model="addData.expire_time">
+        </div>
         <div class="form-img">
-          <label for="add-file">上传图片</label>
+          
+          <label for="add-file">上传图片 </label>
 
           <div id="add-img-container">
             <img :src="src" alt>
@@ -57,6 +62,8 @@
 </template>
 
 <script>
+
+
 export default {
   inject: ["reload","mask"], //项目刷新不白屏
   name: "add",
@@ -79,6 +86,10 @@ export default {
       let user_finance_pw = this.addData.user_finance_pw;
       let user_saving_pw = this.addData.user_saving_pw;
       let user_manager_pw = this.addData.user_manager_pw;
+      let expire_time = new Date(this.addData.expire_time).getTime()/1000;
+      // let expire_year = this.addData.year;
+      // let expire_month = this.addData.month;
+      // let expire_date = this.addData.date;
       let params = new FormData(); //创建一个form对象
       if (image) {
         if (image.type.indexOf("image/") == -1) {
@@ -141,6 +152,11 @@ export default {
         !!!user_nameRex.test(user_name)
       ) {
         alert("姓名只能输入中文和英文");
+      } else if (
+        !!!expire_time ||
+        expire_time === ""
+      ) {
+        alert("请输入正确的日期");
       } else if(!image){
         alert("请上传图片")
       }else {
@@ -154,6 +170,7 @@ export default {
         params.append("user_finance_pw", user_finance_pw); //append 向form表单添加数据
         params.append("user_saving_pw", user_saving_pw); //append 向form表单添加数据
         params.append("user_manager_pw", user_manager_pw); //append 向form表单添加数据
+        params.append("expire_time", expire_time); //append 向form表单添加数据
         let config = {
           headers: { "Content-Type": "multipart/form-data" }
         };
@@ -243,6 +260,9 @@ export default {
 #add .form-group input:focus {
   box-shadow: 0px 0px 10px #00cc99;
   border: 1px #00cc99 solid;
+}
+#add .expire-time input{
+  width: 60px;
 }
 
 #add .identity {
