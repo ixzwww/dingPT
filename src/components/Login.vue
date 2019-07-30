@@ -10,7 +10,7 @@
           <label for="id">账号</label>
           <input
             type="text"
-            v-model="id"
+            v-model.trim="id"
             placeholder="账号"
           >
         </div>
@@ -18,7 +18,7 @@
           <label for="password">密码</label>
           <input
             type="password"
-            v-model="password"
+            v-model.trim="password"
             placeholder="密码"
           >
         </div>
@@ -77,6 +77,10 @@ export default {
                   this.$router.push({ name: "homeLink" });
                 } else if (res.data.identity == "manager") {
                   this.$router.push({ name: "managerLink" });
+                } else{
+                  this.isError = true;
+                  this.remindMessage = "账号或密码错误";
+                  this.password = "";
                 }
               }
             });

@@ -8,39 +8,39 @@
       <div class="form">
         <div class="form-group">
           <label>姓名：</label>
-          <input type="text" placeholder="中文或英文" v-model="editData.user_name">
+          <input type="text" placeholder="中文或英文" v-model.trim="editData.user_name">
         </div>
         <div class="form-group">
           <label>账号/手机号：</label>
-          <input type="text" placeholder="手机号" v-model="editData.user_phone">
+          <input type="text" placeholder="手机号" v-model.trim="editData.user_phone">
         </div>
         <div class="form-group">
           <label>身份证号码：</label>
-          <input type="text" placeholder="身份证号码" v-model="editData.user_id_card_num">
+          <input type="text" placeholder="身份证号码" v-model.trim="editData.user_id_card_num">
         </div>
         <div class="form-group">
           <label>登录密码：</label>
-          <input type="text" placeholder="数字加英文，最低6位" v-model="editData.user_login_pw">
+          <input type="text" placeholder="数字加英文，最低6位" v-model.trim="editData.user_login_pw">
         </div>
         <div class="form-group">
           <label>店长密码：</label>
-          <input type="text" placeholder="英文或数字，3~8位" v-model="editData.user_master_pw">
+          <input type="text" placeholder="英文或数字，3~8位" v-model.trim="editData.user_master_pw">
         </div>
         <div class="form-group">
           <label>财务密码：</label>
-          <input type="text" placeholder="英文或数字，3~8位" v-model="editData.user_finance_pw">
+          <input type="text" placeholder="英文或数字，3~8位" v-model.trim="editData.user_finance_pw">
         </div>
         <div class="form-group">
           <label>库存密码：</label>
-          <input type="text" placeholder="英文或数字，3~8位" v-model="editData.user_saving_pw">
+          <input type="text" placeholder="英文或数字，3~8位" v-model.trim="editData.user_saving_pw">
         </div>
         <div class="form-group">
           <label>经理密码：</label>
-          <input type="text" placeholder="英文或数字，3~8位" v-model="editData.user_manager_pw">
+          <input type="text" placeholder="英文或数字，3~8位" v-model.trim="editData.user_manager_pw">
         </div>
         <div class="form-group">
           <label>到期时间：</label>
-          <input type="text" v-model="editData.expire_time" v-if="!isEdit" @click="isEdit = true">
+          <input type="text" v-model.trim="editData.expire_time" v-if="!isEdit" @click="isEdit = true">
           <input type="date" v-model="editData.expire_time" v-else>
         </div>
         <div class="form-img">

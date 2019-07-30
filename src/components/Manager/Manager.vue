@@ -25,7 +25,7 @@
           <td>财务</td>
           <td>库存</td>
           <td>经理</td>
-          <td rowspan="2">{{worker.auditor_name}}</td>
+          <td rowspan="2">{{worker.auditor_time}}</td>
           <td rowspan="2">{{worker.expire_time}}</td>
           <td rowspan="2">
             <span
@@ -103,6 +103,7 @@ export default {
         this.workerList = JSON.parse(res.data);
         this.workerList.forEach(element => {
           element.expire_time = getDate(element.expire_time)
+          element.auditor_time = getDate(element.auditor_time)
         });
       });
   },

@@ -31,7 +31,7 @@
           <input
             type="text"
             value="搜索"
-            v-model="searchTxt"
+            v-model.trim="searchTxt"
             placeholder="搜索姓名/账号/订单编号"
           >
           <button

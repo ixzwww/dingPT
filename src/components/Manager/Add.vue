@@ -14,7 +14,7 @@
           <input
             type="text"
             placeholder="中文或英文"
-            v-model="addData.user_name"
+            v-model.trim="addData.user_name"
           >
         </div>
         <div class="form-group">
@@ -22,7 +22,7 @@
           <input
             type="text"
             placeholder="手机号"
-            v-model="addData.user_phone"
+            v-model.trim="addData.user_phone"
           >
         </div>
         <div class="form-group">
@@ -30,7 +30,7 @@
           <input
             type="text"
             placeholder="身份证号码"
-            v-model="addData.user_id_card_num"
+            v-model.trim="addData.user_id_card_num"
           >
         </div>
         <div class="form-group">
@@ -38,7 +38,7 @@
           <input
             type="text"
             placeholder="数字加英文，最低6位"
-            v-model="addData.user_login_pw"
+            v-model.trim="addData.user_login_pw"
           >
         </div>
         <div class="form-group">
@@ -46,7 +46,7 @@
           <input
             type="text"
             placeholder="英文或数字，3~8位"
-            v-model="addData.user_master_pw"
+            v-model.trim="addData.user_master_pw"
           >
         </div>
         <div class="form-group">
@@ -54,7 +54,7 @@
           <input
             type="text"
             placeholder="英文或数字，3~8位"
-            v-model="addData.user_finance_pw"
+            v-model.trim="addData.user_finance_pw"
           >
         </div>
         <div class="form-group">
@@ -62,7 +62,7 @@
           <input
             type="text"
             placeholder="英文或数字，3~8位"
-            v-model="addData.user_saving_pw"
+            v-model.trim="addData.user_saving_pw"
           >
         </div>
         <div class="form-group">
@@ -70,7 +70,7 @@
           <input
             type="text"
             placeholder="英文或数字，3~8位"
-            v-model="addData.user_manager_pw"
+            v-model.trim="addData.user_manager_pw"
           >
         </div>
         <div class="form-group">

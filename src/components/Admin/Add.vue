@@ -8,19 +8,19 @@
       <div class="form">
         <div class="form-group">
           <label>姓名：</label>
-          <input type="text" placeholder="中文或英文" v-model="addData.user_name">
+          <input type="text" placeholder="中文或英文" v-model.trim="addData.user_name">
         </div>
         <div class="form-group">
           <label>账号/手机号：</label>
-          <input type="text" placeholder="手机号" v-model="addData.user_phone">
+          <input type="text" placeholder="手机号" v-model.trim="addData.user_phone">
         </div>
         <div class="form-group">
           <label>身份证号码：</label>
-          <input type="text" placeholder="身份证号码" v-model="addData.user_id_card_num">
+          <input type="text" placeholder="身份证号码" v-model.trim="addData.user_id_card_num">
         </div>
         <div class="form-group">
           <label>密码：</label>
-          <input type="text" placeholder="英文加数字，最低6位" v-model="addData.user_login_pw">
+          <input type="text" placeholder="英文加数字，最低6位" v-model.trim="addData.user_login_pw">
         </div>
         <div class="form-img">
           <label for="add-file">上传图片</label>
