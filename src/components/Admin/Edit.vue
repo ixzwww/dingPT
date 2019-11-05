@@ -132,6 +132,8 @@ export default {
 
             } else if (res.data.errorCode == 10000) {
               alert("修改值非法");
+            } else if (res.data.msg == "user phone exist") {
+              alert("账号已存在");
             } else {
               alert("服务器错误");
             }

@@ -177,11 +177,11 @@ th {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   width: 450px;
   position: fixed;
-  left: 50%;
-  margin-left: -225px;
-  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 10%;
   height: 80%;
-  margin-top: -250px;
   background-color: #fff;
   overflow-y:scroll;
 }

@@ -187,6 +187,8 @@ export default {
             alert("添加值为空或非法");
           } else if (res.data.msg == "photo err") {
             alert("图片错误");
+          } else if (res.data.msg == "user phone exist") {
+            alert("账号已存在");
           } else {
             alert("服务器错误");
           }
